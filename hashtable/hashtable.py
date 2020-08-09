@@ -22,6 +22,8 @@ class HashTable:
 
     def __init__(self, capacity):
         # Your code here
+        self.capacity = capacity
+        self.storage = [None] * capacity
 
 
     def get_num_slots(self):
@@ -35,6 +37,7 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        return self.capacity
 
 
     def get_load_factor(self):
@@ -44,6 +47,7 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        return self.capacity * .75
 
 
     def fnv1(self, key):
@@ -54,6 +58,18 @@ class HashTable:
         """
 
         # Your code here
+        #Constants
+
+        # prime = 1099511628211
+        # offset_basis = 14695981039346656037
+
+        #FNV-1 Hash Function
+        # my_hash = offset_basis
+        # for char in key:
+        #     my_hash = my_hash ^ ord(char)
+        #     my_hash = my_hash * prime
+        #     my_hash &= 0xffffffffffffffff
+        # return my_hash
 
 
     def djb2(self, key):
@@ -63,6 +79,17 @@ class HashTable:
         Implement this, and/or FNV-1.
         """
         # Your code here
+
+        # prime = 5381
+        # for c in key:
+        #     my_hash = (prime * 33) + ord(c)
+        #     my_hash &= 0xffffffff
+        # return my_hash
+
+        hash = 5381
+        for x in key:
+            hash = ((hash << 5) + hash) + ord(x)
+        return hash & 0xFFFFFFFF
 
 
     def hash_index(self, key):
@@ -82,6 +109,10 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        # self.hash_table[self.hash_index(key)] = (key,value)
+
+        index = self.hash_index(key)
+        self.storage[index] = value
 
 
     def delete(self, key):
@@ -93,6 +124,8 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        index = self.hash_index(key)
+        self.storage[index] = None
 
 
     def get(self, key):
@@ -104,6 +137,8 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        index = self.hash_index(key)
+        return self.storage[index]
 
 
     def resize(self, new_capacity):
