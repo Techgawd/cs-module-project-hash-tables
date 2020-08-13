@@ -47,7 +47,7 @@ class HashTable:
         Implement this.
         """
         # Your code here
-        return self.capacity * .75
+        return self.count / self.capacity
 
 
     def fnv1(self, key):
@@ -56,6 +56,7 @@ class HashTable:
 
         Implement this, and/or DJB2.
         """
+        pass
 
         # Your code here
         #Constants
